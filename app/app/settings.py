@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'core',
     'user',
-    'recipe'
+    'recipe',
+    'pages.apps.PagesConfig',
+    'listings.apps.ListingsConfig',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,8 +129,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = '/vol/web/media'
-STATIC_ROOT = '/vol/web/static'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS= [
+    os.path.join(BASE_DIR, 'app/static')
+]
 
 
 AUTH_USER_MODEL = 'core.User'

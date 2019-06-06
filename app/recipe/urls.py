@@ -9,6 +9,13 @@ router.register('tags', views.TagViewSet)
 router.register('ingredients', views.IngredientViewSet)
 router.register('recipes', views.RecipeViewSet)
 
+router.register('diets', views.DietViewSet)
+router.register('allergys', views.AllergyViewSet)
+router.register('courses', views.CourseViewSet)
+router.register('cousines', views.CousineViewSet)
+router.register('holidays', views.HolidayViewSet)
+router.register('nutritions', views.NutritionsViewSet)
+
 app_name = 'recipe'
 
 urlpatterns = [

@@ -24,8 +24,23 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
+class RecipeAdmin(admin.ModelAdmin):
+  list_display = ('id', 'title', 'is_published', 'price', 'list_date','description')
+  list_display_links = ('id', 'title')
+  list_filter = ('user',)
+  list_editable = ('is_published',)
+  search_fields = ('title', 'description','price')
+  list_per_page = 25
+
+
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Tag)
 admin.site.register(models.Ingredient)
-admin.site.register(models.Recipe)
+admin.site.register(models.Recipe, RecipeAdmin)
+admin.site.register(models.Diet)
+admin.site.register(models.Allergy)
+admin.site.register(models.Course)
+admin.site.register(models.Cousine)
+admin.site.register(models.Holiday)
+admin.site.register(models.Nutritions)
