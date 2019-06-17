@@ -24,7 +24,7 @@
           <a href="index.html">Home</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="{% url 'listings' %}">Listings</a>
+          <a href="{% url 'listings' %}">Recipes</a>
         </li>
         <li class="breadcrumb-item active">{{recipe.name}}</li>
       </ol>
@@ -35,7 +35,7 @@
 <!-- Listing -->
 <section id="listing" class="py-4">
   <div class="container">
-    <a href="{% url 'listings' %}" class="btn btn-light mb-4">Back To Listings</a>
+    <a href="{% url 'listings' %}" class="btn btn-light mb-4">Back To Recipes</a>
     <div class="row">
       <div class="col-md-9">
         <!-- Home Main Image -->
@@ -83,7 +83,7 @@
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-bed"></i> Ingredients:
-                <span class="float-right"><br/>{% for ingredients in recipe.ingredients.all %}{{ ingredients }}<br />{% endfor %}</span>
+                <span class="float-right"><br/>{% for recipeIngredient in recipe.recipeIngredient.all %}{{ recipeIngredient }}<br />{% endfor %}</span>
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-bath"></i> Diets:
@@ -91,8 +91,8 @@
                   class="float-right"><br/>{% for suitableForDiet in recipe.suitableForDiet.all %}{{ suitableForDiet }}<br />{% endfor %}</span>
               </li>
               <li class="list-group-item text-secondary">
-                <i class="fas fa-car"></i> Garage:
-                <span class="float-right">2
+                <i class="fas fa-car"></i> Course:
+                <span class="float-right"><br/>{% for recipeCategory in recipe.recipeCategory.all %}{{ recipeCategory }}<br />{% endfor %}</span>
                 </span>
               </li>
             </ul>
@@ -100,8 +100,8 @@
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-secondary">
-                <i class="fas fa-th-large"></i> Square Feet:
-                <span class="float-right">3200</span>
+                <i class="fas fa-th-large"></i>Cuisine:
+                <span class="float-right"><br/>{% for recipeCuisine in recipe.recipeCuisine.all %}{{ recipeCuisine }}<br />{% endfor %}</span>
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-square"></i> Lot Size:
@@ -156,8 +156,8 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="property_name" class="col-form-label">Property:</label>
-            <input type="text" name="listing" class="form-control" value="{{recipe.title}}" disabled>
+            <label for="property_name" class="col-form-label">Recipe:</label>
+            <input type="text" name="listing" class="form-control" value="{{recipe.name}}" disabled>
           </div>
           <div class="form-group">
             <label for="name" class="col-form-label">Name:</label>

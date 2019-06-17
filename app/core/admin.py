@@ -25,11 +25,11 @@ class UserAdmin(BaseUserAdmin):
     )
 
 class RecipeAdmin(admin.ModelAdmin):
-  list_display = ('id', 'name', 'is_published', 'price', 'list_date','description')
+  list_display = ('id', 'name', 'is_published', 'estimatedCost', 'list_date','description')
   list_display_links = ('id', 'name')
   list_filter = ('user',)
   list_editable = ('is_published',)
-  search_fields = ('name', 'description','price')
+  search_fields = ('name', 'description','estimatedCost')
   list_per_page = 25
 
 

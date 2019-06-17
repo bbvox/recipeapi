@@ -154,7 +154,7 @@
                     </div>
                     <div class="row py-2 text-secondary">
                       <div class="col-6">
-                        <i class="fas fa-bed"></i><br/>{% for holiday in recipe.holiday.all %}{{ holiday }}<br/>{% endfor %}</div>
+                        <i class="fas fa-bed"></i>{% for recipeIngredient in recipe.recipeIngredient.all %}{{ recipeIngredient }}<br />{% endfor %}</div>
                       <div class="col-6">
                         <i class="fas fa-bath"></i>{% for suitableForDiet in recipe.diet.all %}{{ diet }}<br/>{% endfor %}</div>
                     </div>

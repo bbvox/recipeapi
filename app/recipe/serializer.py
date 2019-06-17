@@ -65,7 +65,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    ingredients = serializers.PrimaryKeyRelatedField(
+    recipeIngredient = serializers.PrimaryKeyRelatedField(
         many = True,
         queryset= Ingredient.objects.all()
     )
@@ -84,12 +84,12 @@ class RecipeSerializer(serializers.ModelSerializer):
         queryset= Allergy.objects.all()
     )
 
-    course = serializers.PrimaryKeyRelatedField(
+    recipeCategory = serializers.PrimaryKeyRelatedField(
         many = True,
         queryset= Course.objects.all()
     )
 
-    cousine = serializers.PrimaryKeyRelatedField(
+    recipeCuisine = serializers.PrimaryKeyRelatedField(
         many = True,
         queryset= Cousine.objects.all()
     )
@@ -109,18 +109,18 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'name', 'ingredients', 'tags','suitableForDiet', 'allergy' ,'course', 'cousine', 'holiday', 'nutritions', 'time_minutes', 'price', 'link', 'description', 'list_date', 'is_published')
+        fields = ('id', 'name', 'recipeIngredient', 'tags','suitableForDiet', 'allergy' ,'recipeCategory', 'recipeCuisine', 'holiday', 'nutritions', 'time_minutes', 'estimatedCost', 'link', 'description', 'list_date', 'is_published')
         read_only_fields = ('id',)
 
 
 class RecipeDetailSerializer(RecipeSerializer):
-    ingredients = IngredientSerializer(many=True,read_only=True)
+    recipeIngredient = IngredientSerializer(many=True,read_only=True)
     tags = TagSerializer(many=True,read_only=True)
     """"""
     suitableForDiet = DietSerializer(many=True,read_only=True)
     allergy = AllergySerializer(many=True,read_only=True)
-    course = CourseSerializer(many=True,read_only=True)
-    cousine = CousineSerializer(many=True,read_only=True)
+    recipeCategory = CourseSerializer(many=True,read_only=True)
+    recipeCuisine = CousineSerializer(many=True,read_only=True)
     holiday = HolidaySerializer(many=True,read_only=True)
     nutritions = NutritionsSerializer(many=True,read_only=True)
 

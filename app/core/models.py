@@ -164,14 +164,14 @@ class Recipe(models.Model):
     name = models.CharField(max_length= 255)
     time_minutes = models.IntegerField()
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
+    estimatedCost = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
     link = models.CharField(max_length=255, blank=True)
-    ingredients = models.ManyToManyField('Ingredient',blank=True)
+    recipeIngredient = models.ManyToManyField('Ingredient',blank=True)
     tags = models.ManyToManyField('Tag',blank=True)
     suitableForDiet = models.ManyToManyField('Diet', blank=True)
     allergy = models.ManyToManyField('Allergy', blank=True)
-    course = models.ManyToManyField('Course', blank=True)
-    cousine = models.ManyToManyField('Cousine', blank=True)
+    recipeCategory = models.ManyToManyField('Course', blank=True)
+    recipeCuisine = models.ManyToManyField('Cousine', blank=True)
     holiday = models.ManyToManyField('Holiday', blank=True)
     nutritions = models.ManyToManyField('Nutritions', blank=True)
     image = models.ImageField(upload_to=recipe_image_file_path, blank=True)
@@ -179,4 +179,4 @@ class Recipe(models.Model):
     is_published = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.title
+        return self.name
