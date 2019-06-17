@@ -165,7 +165,7 @@ class Recipe(models.Model):
     time_minutes = models.IntegerField()
     description = models.TextField(blank=True)
     estimatedCost = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
-    link = models.CharField(max_length=255, blank=True)
+    recipeYield = models.CharField(max_length=255, blank=True)
     recipeIngredient = models.ManyToManyField('Ingredient',blank=True)
     tags = models.ManyToManyField('Tag',blank=True)
     suitableForDiet = models.ManyToManyField('Diet', blank=True)
@@ -175,7 +175,7 @@ class Recipe(models.Model):
     holiday = models.ManyToManyField('Holiday', blank=True)
     nutritions = models.ManyToManyField('Nutritions', blank=True)
     image = models.ImageField(upload_to=recipe_image_file_path, blank=True)
-    list_date = models.DateTimeField(default=datetime.now, blank=True)
+    datePublished = models.DateTimeField(default=datetime.now, blank=True)
     is_published = models.BooleanField(default=True)
 
     def __str__(self):

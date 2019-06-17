@@ -10,7 +10,7 @@ from core.models  import Recipe
 
 
 def index(request):
-   recipes = Recipe.objects.order_by('-list_date').filter(is_published=True )
+   recipes = Recipe.objects.order_by('-datePublished').filter(is_published=True )
 
    paginator = Paginator(recipes, 6)
    page = request.GET.get('page')

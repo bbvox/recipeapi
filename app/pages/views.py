@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from core.models  import Recipe
 
 def index(request):
-    recipes = Recipe.objects.order_by('-list_date').filter(is_published=True)[:3]
+    recipes = Recipe.objects.order_by('-datePublished').filter(is_published=True)[:3]
 
     context = {
         'recipes': recipes

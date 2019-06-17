@@ -25,7 +25,7 @@ class UserAdmin(BaseUserAdmin):
     )
 
 class RecipeAdmin(admin.ModelAdmin):
-  list_display = ('id', 'name', 'is_published', 'estimatedCost', 'list_date','description')
+  list_display = ('id', 'name', 'is_published', 'estimatedCost', 'datePublished','description')
   list_display_links = ('id', 'name')
   list_filter = ('user',)
   list_editable = ('is_published',)

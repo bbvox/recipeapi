@@ -136,7 +136,7 @@
                   <img class="card-img-top" src="{{ recipe.image.url }}" alt="image">
                   <div class="card-img-overlay">
                     <h2>
-                      <span class="badge badge-secondary text-white">{{ recipe.price }}</span>
+                      <span class="badge badge-secondary text-white">{{ recipe.estimatedCost }}</span>
                     </h2>
                   </div>
                   <div class="card-body">
@@ -165,7 +165,7 @@
                     </div>
                     <div class="row text-secondary pb-2">
                       <div class="col-6">
-                        <i class="fas fa-clock"></i>{{recipe.list_date}}</div>
+                        <i class="fas fa-clock"></i>{{recipe.datePublished}}</div>
                     </div>
                     <hr>
                     <a href="{% url 'listing' recipe.id %}" class="btn btn-primary btn-block">More Info</a>
