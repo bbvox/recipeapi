@@ -133,7 +133,7 @@
                
               <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card listing-preview">
-                  <img class="card-img-top" src="{{ recipe.image }}" alt="image">
+                  <img class="card-img-top" src="{{ recipe.image.url }}" alt="image">
                   <div class="card-img-overlay">
                     <h2>
                       <span class="badge badge-secondary text-white">{{ recipe.price }}</span>
@@ -141,7 +141,7 @@
                   </div>
                   <div class="card-body">
                     <div class="listing-heading text-center">
-                      <h4 class="text-primary">{{ recipe.title }}</h4>
+                      <h4 class="text-primary">{{ recipe.name }}</h4>
                       <p>
                         <i class="fas fa-map-marker text-secondary"></i>{{ recipe.description }}</p>
                     </div>
@@ -156,7 +156,7 @@
                       <div class="col-6">
                         <i class="fas fa-bed"></i><br/>{% for holiday in recipe.holiday.all %}{{ holiday }}<br/>{% endfor %}</div>
                       <div class="col-6">
-                        <i class="fas fa-bath"></i>{% for diet in recipe.diet.all %}{{ diet }}<br/>{% endfor %}</div>
+                        <i class="fas fa-bath"></i>{% for suitableForDiet in recipe.diet.all %}{{ diet }}<br/>{% endfor %}</div>
                     </div>
                     <hr>
                     <div class="row py-2 text-secondary">
@@ -168,7 +168,7 @@
                         <i class="fas fa-clock"></i>{{recipe.list_date}}</div>
                     </div>
                     <hr>
-                    <a href="listing.html" class="btn btn-primary btn-block">More Info</a>
+                    <a href="{% url 'listing' recipe.id %}" class="btn btn-primary btn-block">More Info</a>
                   </div>
                 </div>
               </div>

@@ -161,14 +161,14 @@ class Recipe(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete = models.CASCADE
     )
-    title = models.CharField(max_length= 255)
+    name = models.CharField(max_length= 255)
     time_minutes = models.IntegerField()
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
     link = models.CharField(max_length=255, blank=True)
     ingredients = models.ManyToManyField('Ingredient',blank=True)
     tags = models.ManyToManyField('Tag',blank=True)
-    diet = models.ManyToManyField('Diet', blank=True)
+    suitableForDiet = models.ManyToManyField('Diet', blank=True)
     allergy = models.ManyToManyField('Allergy', blank=True)
     course = models.ManyToManyField('Course', blank=True)
     cousine = models.ManyToManyField('Cousine', blank=True)

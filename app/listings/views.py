@@ -26,7 +26,13 @@ def index(request):
    return render(request, 'listings/listings.html', context)
 
 def listing(request, recipe_id):
-    return render(request, 'listings/listing.html')
+   recipe = get_object_or_404(Recipe, pk=recipe_id)
+
+   context = {
+    'recipe': recipe,
+   }
+   
+   return render(request, 'listings/listing.html',context)
 
 def search(request):
    return render(request, 'listings/search.html')

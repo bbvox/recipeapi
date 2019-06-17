@@ -74,7 +74,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         queryset= Tag.objects.all()
     )
     """"""
-    diet = serializers.PrimaryKeyRelatedField(
+    suitableForDiet = serializers.PrimaryKeyRelatedField(
         many = True,
         queryset= Diet.objects.all()
     )
@@ -109,7 +109,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'title', 'ingredients', 'tags','diet', 'allergy' ,'course', 'cousine', 'holiday', 'nutritions', 'time_minutes', 'price', 'link', 'description', 'list_date', 'is_published')
+        fields = ('id', 'name', 'ingredients', 'tags','suitableForDiet', 'allergy' ,'course', 'cousine', 'holiday', 'nutritions', 'time_minutes', 'price', 'link', 'description', 'list_date', 'is_published')
         read_only_fields = ('id',)
 
 
@@ -117,7 +117,7 @@ class RecipeDetailSerializer(RecipeSerializer):
     ingredients = IngredientSerializer(many=True,read_only=True)
     tags = TagSerializer(many=True,read_only=True)
     """"""
-    diet = DietSerializer(many=True,read_only=True)
+    suitableForDiet = DietSerializer(many=True,read_only=True)
     allergy = AllergySerializer(many=True,read_only=True)
     course = CourseSerializer(many=True,read_only=True)
     cousine = CousineSerializer(many=True,read_only=True)
