@@ -49,6 +49,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
 """ """
 
+class RecipeInstruction(models.Model):
+    
+    text = models.CharField(max_length=255)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    def __str__(self):
+        return self.text
+
 class Diet(models.Model):
     
     name = models.CharField(max_length=255)
@@ -185,6 +196,7 @@ class Recipe(models.Model):
     recipeCuisine = models.ManyToManyField('Cousine', blank=True)
     holiday = models.ManyToManyField('Holiday', blank=True)
     nutrition = models.ManyToManyField('Nutritions', blank=True)
+    recipeInstructions = models.ManyToManyField('RecipeInstruction',blank=True)
     image = models.ImageField(upload_to=recipe_image_file_path, blank=True)
     datePublished = models.DateTimeField(default=datetime.now, blank=True)
     is_published = models.BooleanField(default=True)

@@ -36,6 +36,7 @@ class RecipeAdmin(admin.ModelAdmin):
 
 admin.site.register(models.User, UserAdmin)
 
+admin.site.register(models.RecipeInstruction)
 admin.site.register(models.AggregateRating)
 admin.site.register(models.Tag)
 admin.site.register(models.Ingredient)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import Tag, Ingredient, Recipe, Diet, Allergy, Course, Cousine, Holiday, Nutritions, AggregateRating
+from core.models import Tag, Ingredient, Recipe, Diet, Allergy, Course, Cousine, Holiday, Nutritions, AggregateRating , RecipeInstruction
 """"""
 class DietSerializer(serializers.ModelSerializer):
 
@@ -54,6 +54,12 @@ class AggregateRatingSerializer(serializers.ModelSerializer):
         model = AggregateRating
         fields = ('id', 'name')
         read_only_fields = ('id',)
+class RecipeInstructionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = RecipeInstruction
+        fields = ('id', 'text')
+        read_only_fields = ('id',)
 
 """"""
 class TagSerializer(serializers.ModelSerializer):
@@ -81,6 +87,10 @@ class RecipeSerializer(serializers.ModelSerializer):
         queryset= Tag.objects.all()
     )
     """"""
+    recipeInstructions = serializers.PrimaryKeyRelatedField(
+        many = True,
+        queryset= RecipeInstruction.objects.all()
+    )
     aggregateRating = serializers.PrimaryKeyRelatedField(
         many = True,
         queryset= AggregateRating.objects.all()
@@ -120,7 +130,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'name','keywords','aggregateRating', 'recipeIngredient', 'tags','suitableForDiet', 'allergy' ,'recipeCategory', 'recipeCuisine', 'holiday', 'nutrition', 'time_minutes', 'estimatedCost', 'recipeYield', 'description', 'datePublished', 'is_published')
+        fields = ('id', 'name','keywords','aggregateRating','recipeInstructions', 'recipeIngredient', 'tags','suitableForDiet', 'allergy' ,'recipeCategory', 'recipeCuisine', 'holiday', 'nutrition', 'time_minutes', 'estimatedCost', 'recipeYield', 'description', 'datePublished', 'is_published')
         read_only_fields = ('id',)
 
 
@@ -128,6 +138,7 @@ class RecipeDetailSerializer(RecipeSerializer):
     recipeIngredient = IngredientSerializer(many=True,read_only=True)
     tags = TagSerializer(many=True,read_only=True)
     """"""
+    RecipeInstruction = RecipeInstructionSerializer(many=True,read_only=True)
     AggregateRating = AggregateRatingSerializer(many=True,read_only=True)
     suitableForDiet = DietSerializer(many=True,read_only=True)
     allergy = AllergySerializer(many=True,read_only=True)

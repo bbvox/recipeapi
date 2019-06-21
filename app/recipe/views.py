@@ -4,7 +4,7 @@ from rest_framework import viewsets, mixins, status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from core.models import Tag, Ingredient, Recipe , Diet, Allergy, Course, Cousine, Holiday , Nutritions, AggregateRating
+from core.models import Tag, Ingredient, Recipe , Diet, Allergy, Course, Cousine, Holiday , Nutritions, AggregateRating ,RecipeInstruction
 
 from recipe import serializer
 
@@ -143,6 +143,26 @@ class AggregateRatingViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mix
         serializer.save(user=self.request.user)
 
 
+class RecipeInstructionViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixins.CreateModelMixin):
+
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    queryset = RecipeInstruction.objects.all()
+    serializer_class = serializer.RecipeInstructionSerializer
+
+    def get_queryset(self):
+        assigned_only =bool(self.request.query_params.get('assigned_only'))
+        queryset = self.queryset
+        if assigned_only:
+            queryset=queryset.filter(recipe__isnull=False)
+
+        return queryset.filter(user=self.request.user).order_by('-text')
+
+    def perform_create(self, serializer):
+        """create Rating"""
+        serializer.save(user=self.request.user)
+
+
 """"""
 
 
@@ -209,6 +229,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         holidays = self.request.query_params.get('holidays')
         nutritions = self.request.query_params.get('nutritions')
         aggregateRatings = self.request.query_params.get('aggregateRatings')
+        recipeInstructions = self.request.query_params.get('recipeInstructions')
         """"""
         
         queryset = self.queryset
@@ -219,6 +240,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
             ingredient_ids = self._params_to_ints(ingredients)
             queryset = queryset.filter(ingredients__id__in=ingredient_ids)
         """"""
+        if recipeInstructions:
+            recipeInstruction_ids=self._params_to_ints(recipeInstructions)
+            queryset =queryset.filter(recipeInstructions__id__in=recipeInstruction_ids)
+        
         if aggregateRatings:
             aggregateRating_ids=self._params_to_ints(aggregateRatings)
             queryset =queryset.filter(aggregateRatings__id__in=aggregateRating_ids)
