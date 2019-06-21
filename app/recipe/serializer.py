@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import Tag, Ingredient, Recipe, Diet, Allergy, Course, Cousine, Holiday, Nutritions
+from core.models import Tag, Ingredient, Recipe, Diet, Allergy, Course, Cousine, Holiday, Nutritions, AggregateRating
 """"""
 class DietSerializer(serializers.ModelSerializer):
 
@@ -48,6 +48,13 @@ class NutritionsSerializer(serializers.ModelSerializer):
         fields = ('id', 'name','calories', 'fat_calories', 'total_fat', 'sat_fat', 'trans_fat', 'sodium', 'total_carb', 'fibers', 'sugar', 'proteins', 'vitamins','calcium', 'iron' )
         read_only_fields = ('id',)
 
+class AggregateRatingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = AggregateRating
+        fields = ('id', 'name')
+        read_only_fields = ('id',)
+
 """"""
 class TagSerializer(serializers.ModelSerializer):
 
@@ -74,6 +81,10 @@ class RecipeSerializer(serializers.ModelSerializer):
         queryset= Tag.objects.all()
     )
     """"""
+    aggregateRating = serializers.PrimaryKeyRelatedField(
+        many = True,
+        queryset= AggregateRating.objects.all()
+    )
     suitableForDiet = serializers.PrimaryKeyRelatedField(
         many = True,
         queryset= Diet.objects.all()
@@ -99,7 +110,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         queryset= Holiday.objects.all()
     )
 
-    nutritions = serializers.PrimaryKeyRelatedField(
+    nutrition = serializers.PrimaryKeyRelatedField(
         many = True,
         queryset= Nutritions.objects.all()
     )
@@ -109,7 +120,7 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'name', 'recipeIngredient', 'tags','suitableForDiet', 'allergy' ,'recipeCategory', 'recipeCuisine', 'holiday', 'nutritions', 'time_minutes', 'estimatedCost', 'recipeYield', 'description', 'datePublished', 'is_published')
+        fields = ('id', 'name','keywords','aggregateRating', 'recipeIngredient', 'tags','suitableForDiet', 'allergy' ,'recipeCategory', 'recipeCuisine', 'holiday', 'nutrition', 'time_minutes', 'estimatedCost', 'recipeYield', 'description', 'datePublished', 'is_published')
         read_only_fields = ('id',)
 
 
@@ -117,12 +128,13 @@ class RecipeDetailSerializer(RecipeSerializer):
     recipeIngredient = IngredientSerializer(many=True,read_only=True)
     tags = TagSerializer(many=True,read_only=True)
     """"""
+    AggregateRating = AggregateRatingSerializer(many=True,read_only=True)
     suitableForDiet = DietSerializer(many=True,read_only=True)
     allergy = AllergySerializer(many=True,read_only=True)
     recipeCategory = CourseSerializer(many=True,read_only=True)
     recipeCuisine = CousineSerializer(many=True,read_only=True)
     holiday = HolidaySerializer(many=True,read_only=True)
-    nutritions = NutritionsSerializer(many=True,read_only=True)
+    nutrition = NutritionsSerializer(many=True,read_only=True)
 
 
 

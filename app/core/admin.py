@@ -25,7 +25,7 @@ class UserAdmin(BaseUserAdmin):
     )
 
 class RecipeAdmin(admin.ModelAdmin):
-  list_display = ('id', 'name', 'is_published', 'estimatedCost', 'datePublished','description')
+  list_display = ('id', 'name', 'is_published', 'estimatedCost', 'datePublished','description','keywords')
   list_display_links = ('id', 'name')
   list_filter = ('user',)
   list_editable = ('is_published',)
@@ -35,6 +35,8 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.User, UserAdmin)
+
+admin.site.register(models.AggregateRating)
 admin.site.register(models.Tag)
 admin.site.register(models.Ingredient)
 admin.site.register(models.Recipe, RecipeAdmin)

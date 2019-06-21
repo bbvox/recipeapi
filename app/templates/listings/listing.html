@@ -105,7 +105,7 @@
               </li>
               <li class="list-group-item text-secondary">
                 <i class="fas fa-square"></i> Lot Size:
-                <span class="float-right">2.5 Acres
+                <span class="float-right"><br/>{% for nutrition in recipe.nutrition.all %}{{ nutrition }}<br />{% endfor %}
                 </span>
               </li>
               <li class="list-group-item text-secondary">

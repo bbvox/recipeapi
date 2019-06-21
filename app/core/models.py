@@ -132,7 +132,16 @@ class Nutritions(models.Model):
     )
 
     def __str__(self):
-        return self.name        
+        return self.name
+
+class AggregateRating(models.Model):
+    name = models.CharField(max_length=254)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+    def __str__(self):
+        return self.name
 """ """
 class Tag(models.Model):
     """Tag to be used for a recipe"""
@@ -162,6 +171,8 @@ class Recipe(models.Model):
         on_delete = models.CASCADE
     )
     name = models.CharField(max_length= 255)
+    keywords = models.CharField(max_length= 255, blank=True)
+    aggregateRating = models.ManyToManyField('AggregateRating',blank=True)
     time_minutes = models.IntegerField()
     description = models.TextField(blank=True)
     estimatedCost = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
@@ -173,7 +184,7 @@ class Recipe(models.Model):
     recipeCategory = models.ManyToManyField('Course', blank=True)
     recipeCuisine = models.ManyToManyField('Cousine', blank=True)
     holiday = models.ManyToManyField('Holiday', blank=True)
-    nutritions = models.ManyToManyField('Nutritions', blank=True)
+    nutrition = models.ManyToManyField('Nutritions', blank=True)
     image = models.ImageField(upload_to=recipe_image_file_path, blank=True)
     datePublished = models.DateTimeField(default=datetime.now, blank=True)
     is_published = models.BooleanField(default=True)
