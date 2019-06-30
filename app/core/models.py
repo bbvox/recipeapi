@@ -184,7 +184,7 @@ class Recipe(models.Model):
     name = models.CharField(max_length= 255)
     keywords = models.CharField(max_length= 255, blank=True)
     aggregateRating = models.ManyToManyField('AggregateRating',blank=True)
-    time_minutes = models.IntegerField()
+    totalTime = models.IntegerField()
     description = models.TextField(blank=True)
     estimatedCost = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
     recipeYield = models.CharField(max_length=255, blank=True)
@@ -200,6 +200,8 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to=recipe_image_file_path, blank=True)
     datePublished = models.DateTimeField(default=datetime.now, blank=True)
     is_published = models.BooleanField(default=True)
+    cookTime = models.TimeField(blank=True)
+    prepTime = models.TimeField(blank=True)
 
     def __str__(self):
         return self.name
